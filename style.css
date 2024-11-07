@@ -1,0 +1,230 @@
+/* Réinitialisation du style de base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+}
+
+.header {
+    background-image: url('background.jpg'); /* Remplace 'background.jpg' par le chemin de l'image de fond */
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    color: #FFD700;
+}
+
+.header h1 {
+    font-size: 65px;
+    font-weight: bold;
+}
+
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+
+    width: 60%;
+    height: 70px;
+}
+
+.search-container input {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 5px 0 0 5px;
+    border-width: 2px 0px 2px 2px;
+    border-color: black;
+    border-style: solid;
+    outline: none;
+
+    background-color: rgb(231, 231, 231);
+
+    font-size: 35px;
+}
+
+.search-container input::placeholder {
+    padding-left: 4%;
+}
+
+.search-container .search-button {
+    padding: 10px;
+    border-width: 2px 2px 2px 0px;
+    border-color: black;
+    border-style: solid;
+    background-color: #fff;
+    cursor: pointer;
+    border-radius: 0 5px 5px 0;
+
+    font: 35px;
+
+    width: 70px;
+    height: 70px;
+}
+
+.search-button i{
+    width: 100%;
+}
+
+
+.container{
+    position: relative;
+    display: inline-block;
+
+    width: 100%;
+}
+
+.middle{
+    height: 90%;
+    width: 75%;
+    margin-left: 12%;
+    display: flex;
+    flex-direction: column; /* Aligner les éléments verticalement */
+    justify-content: center; /* Centre verticalement les éléments */
+    align-items: center; /* Centre horizontalement les éléments */
+}
+
+.image-background{
+    display: block;
+    width: 100%; /* Ajuste selon la taille souhaitée */
+    height: auto;
+}
+
+.background{
+    background-color: rgba(0.5, 0.5, 0.5, 0.5);
+    display: inline-block;
+
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left: 0;
+}
+
+.filters-results {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+
+    margin-top: 200px;
+    background-color: #ffffff;
+}
+
+.filters select {
+    margin-right: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    font-size: 1em;
+}
+
+.results-count {
+    font-size: 1em;
+    color: #555;
+}
+
+.no-results {
+    text-align: center;
+    padding: 50px;
+    font-size: 1.2em;
+    color: #555;
+}
+
+/* Styles de base pour le menu */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    font-family: Arial, sans-serif;
+}
+
+/* Style du bouton du menu */
+.dropdown-button {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Icône pour le bouton */
+.dropdown-button::after {
+    content: '▾';
+    font-size: 12px;
+}
+
+/* Contenu déroulant */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    padding: 10px;
+}
+
+/* Champ de recherche */
+.dropdown-search {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+/* Icône de loupe */
+.dropdown-search i {
+    font-size: 14px;
+    color: #aaa;
+    margin-right: 5px;
+}
+
+/* Input de recherche */
+.dropdown-search input {
+    border: none;
+    outline: none;
+    flex: 1;
+    font-size: 14px;
+}
+
+/* Liste des options */
+.dropdown-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Élément de la liste */
+.dropdown-content li {
+    padding: 8px 5px;
+    cursor: pointer;
+}
+
+/* Hover sur les éléments de la liste */
+.dropdown-content li:hover {
+    background-color: #f0f0f0;
+}
+
+/* Affichage du menu lorsqu'il est actif */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
