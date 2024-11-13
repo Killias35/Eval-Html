@@ -80,6 +80,12 @@ body {
     width: 100%;
 }
 
+.center{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
 .middle{
     height: 90%;
     width: 75%;
@@ -107,33 +113,10 @@ body {
     left: 0;
 }
 
-.filters-results {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-
-    margin-top: 200px;
-    background-color: #ffffff;
-}
-
-.filters select {
-    margin-right: 10px;
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    outline: none;
-    font-size: 1em;
-}
-
-.results-count {
-    font-size: 1em;
-    color: #555;
-}
-
 .no-results {
     text-align: center;
-    padding: 50px;
+    padding: 100px;
+    padding-top: 300px;
     font-size: 1.2em;
     color: #555;
 }
@@ -142,8 +125,9 @@ body {
 .dropdown {
     position: relative;
     display: inline-block;
-    width: 200px;
+    width: 260px;
     font-family: Arial, sans-serif;
+    padding: 20px 0px 0px 0px;
 }
 
 /* Style du bouton du menu */
