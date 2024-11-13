@@ -29,7 +29,7 @@
     </header>
 
 
-    <div class="center">
+    <div class="center" style="margin-bottom: 50px;">
 
         <div class="dropdown">
             <div class="dropdown-button">Ingrédients</div>
@@ -93,29 +93,24 @@
 
     <!-- Message de résultats -->
     <section class="no-results">
-        <p>Aucune recette ne contient 'Voiture'</p>
+        <p>Aucune recette correspondante</p>
     </section>
 
-    <section class="cards">
+    <!-- Cartes d'apparitions -->
+    <section class="results" style="display: none;">
+        <div class="results-number center"></div>
+        
         <div class="card-container">
-
-            <div class="card">
+            <div class="card" style="display: none;" >
                 <div class="card-image"></div>
                 <div class="card-content">
                     <h2 id="card-title">Tarte au thon</h2>
                     <h3>DESCRIPTION</h3>
                     <div id="card-descritpion" class="recette">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla aliquet.</div>
                     <h4>INGRÉDIENTS</h4>
-                    <div class="ingredients">
-                        <div>Lait de coco<br><span>400 ml</span></div>
-                        <div>Jus de citron<br><span>2</span></div>
-                        <div>Crème de coco<br><span>4 cuillères</span></div>
-                        <div>Sucre<br><span>20 g</span></div>
-                        <div>Glaçons<br><span>2</span></div>
-                    </div>
+                    <div class="ingredients"></div>
                 </div>
             </div>
-            
         </div>
     </section>
 
