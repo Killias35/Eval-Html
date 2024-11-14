@@ -192,7 +192,7 @@ function addFilter(type, name)
 function search(data)
 {
     const searchBar = document.getElementById('search-barre');
-    description = searchBar.value
+    var description = searchBar.value
 
     deleteCards();
 
@@ -258,8 +258,11 @@ function deleteCards()
        
 }
 
-function showCards(data, descritpion)
+function showCards(data)
 {
+    const searchBar = document.getElementById('search-barre');
+    var description = searchBar.value
+
     const noResult = document.getElementsByClassName('no-results')[0];
     const result = document.getElementsByClassName('results')[0];
 
@@ -314,7 +317,7 @@ function showCards(data, descritpion)
     }
     else{
         noResult.style.display = 'block';
-        document.getElementById('search-result').textContent = 'Aucune recette correspondant a ' + descritpion
+        document.getElementById('search-result').textContent = 'Aucune recette correspondant a: ' + description
     }
 }
 
