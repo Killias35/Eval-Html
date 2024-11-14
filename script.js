@@ -10,6 +10,10 @@ async function loadJSON() {
 }
 
 //fonction données
+
+/*
+    Ces fonctions vont recuperer toutes les données a mettres dans les filtres
+*/
 function GetIngredientsFromJSON(data, filter="")
 {
     var lst = [];
@@ -79,6 +83,10 @@ function GetUstensilsFromJSON(data, filter="")
 
 function GetDataWithFilter(data)
 {
+    /*
+        Cette fonction vas retourner toutes les recettes correspondant au filtre choisis (tags)
+    */
+
     var lst = [];
     data.forEach(recette => {
 
@@ -129,11 +137,14 @@ function GetDataWithFilter(data)
 
 function GetRecette(data, description)
 {
+    /*
+        Cette fonction vas retourner toutes les recettes qui correspond a la recherche de la barre principale + aux filtres
+    */
+
     var items = [];
     if(description.length >= 3 || description.length == 0)
     {
         description = description.toLowerCase();
-
         const newData = GetDataWithFilter(data);
 
         newData.forEach(recette => {
@@ -170,6 +181,9 @@ function GetRecette(data, description)
 
 function addFilter(type, name)
 {
+    /*
+        Cette fonction vas ajouter et retirer un filtre qui servira pour la recherche d'element
+    */
     for(const key in tags)
         {
             if(type.includes(key))
@@ -191,6 +205,10 @@ function addFilter(type, name)
 //fonction reliant back-front
 function search(data)
 {
+    /*
+        Cette fonction est la methode complete pour effectuer la recherche puis afficher les recettes et changer les filtres graces aux recettes restentes
+    */
+
     const searchBar = document.getElementById('search-barre');
     var description = searchBar.value
 
@@ -203,6 +221,9 @@ function search(data)
 
 function setFilters()
 {
+    /*
+        Cette fonction est la methode complete pour afficher tout les filtres avec les recettes restentes
+    */
     const searchBar = document.getElementById('search-barre');
 
     newdata = GetRecette(Data, searchBar.value);
@@ -224,6 +245,10 @@ function setFilters()
 
 function addTagFilter(type, name)
 {
+    /*
+        Cette fonction est  la methode complete utilisé pour lors d'une pression sur un tag ou un filtre
+        elle ajoute un tag puis affiche tout les tags actuelle
+    */
     deleteTags();
     addFilter(type, name);
 
@@ -240,6 +265,9 @@ function addTagFilter(type, name)
 //fonction front
 function deleteCards()
 {
+    /*
+        Supprime toutes les recettes affichés
+    */
     const noResult = document.getElementsByClassName('no-results')[0];
     const result = document.getElementsByClassName('results')[0];
 
@@ -260,6 +288,9 @@ function deleteCards()
 
 function showCards(data)
 {
+    /*
+        Affiche toutes les recettes contenus dans data
+    */
     const searchBar = document.getElementById('search-barre');
     var description = searchBar.value
 
@@ -323,6 +354,9 @@ function showCards(data)
 
 function setFilter(lst, className)
 {
+    /*
+        Affiche tout les filtres de la liste
+    */
     const DropDown = document.getElementsByClassName(className)[0];
     deleteFilter(className);
 
@@ -344,12 +378,19 @@ function setFilter(lst, className)
 
 function deleteFilter(className)
 {
+    /*
+        Supprime toutes les filtres affichés
+    */
     const DropDown = document.getElementsByClassName(className)[0];
     DropDown.innerHTML = "";
 }
 
 function addTag(type, tag)
 {
+    /*
+        Ajoute un tag
+    */
+
     const tagContainer = document.getElementsByClassName('tag-container')[0];
     var newTag = document.getElementsByClassName('tag')[0].cloneNode(true);
     var newTagBtn =  newTag.getElementsByClassName('tag-close')[0]
@@ -365,6 +406,9 @@ function addTag(type, tag)
 
 function deleteTags()
 {
+    /*
+        Supprime touts les tags affichés
+    */
     const tagContainer = document.getElementsByClassName('tag-container')[0];
     const tagTemplate = document.getElementsByClassName('tag')[0];
     
@@ -377,18 +421,15 @@ function deleteTags()
 }
 
 
-
+// variables globales
 var Data = {};
-var ingredients = [];
-var Appareils = [];
-var Ustensiles = [];
-
 var tags = {
     'Ingredients': [], 
     'Appareils': [], 
     'Ustensiles': []
 }
 
+// Au chargement du fichier JSON, les données sont mis en place
 loadJSON().then(data => {
     Data = data;
     search(data);
@@ -398,10 +439,11 @@ loadJSON().then(data => {
     const appareil_filter = document.getElementById('appareils-filter');
     const ustensil_filter = document.getElementById('ustensils-filter');
 
+    // Ajout de tout les events a tout les boutons
+
     searchBar.addEventListener('input', function() {
         search(data)
     });
-
 
     ingredient_filter.addEventListener('input', function() {
         setFilters();
