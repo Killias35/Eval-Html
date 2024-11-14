@@ -160,9 +160,13 @@ body {
     border: 1px solid #ccc;
     border-radius: 4px;
     width: 100%;
+    height: 300px;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;
     padding: 10px;
+
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /* Champ de recherche */
@@ -211,6 +215,44 @@ body {
 /* Affichage du menu lorsqu'il est actif */
 .dropdown:hover .dropdown-content {
     display: block;
+}
+
+.tag-container{
+    width: 100%;
+    height: 200px;
+    display: flex;
+
+    align-items: center;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    background-color: #ffd966; /* Couleur jaune */
+    color: #333; /* Couleur du texte */
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    font-size: 22px;
+    margin: 5px;
+}
+
+/* Styles du texte à l'intérieur du tag */
+.tag-text {
+    margin-right: 10px;
+}
+
+/* Bouton pour fermer le tag */
+.tag-close {
+    background: none;
+    border: none;
+    color: #333;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.tag-close:hover {
+    color: #000; /* Couleur plus foncée au survol */
 }
 
 .card {

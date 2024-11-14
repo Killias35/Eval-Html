@@ -29,24 +29,16 @@
     </header>
 
 
-    <div class="center" style="margin-bottom: 50px;">
+    <div class="center">
 
         <div class="dropdown">
             <div class="dropdown-button">Ingrédients</div>
             <div class="dropdown-content">
                 <div class="dropdown-search">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input class="Ingredients-input" type="text" placeholder="Rechercher...">
+                    <input id="ingredients-filter" class="Ingredients-input" type="text" placeholder="Rechercher...">
                 </div>
-                <ul class="Ingredients-ul">
-                    <!-- Exemple -->
-                    
-                    <li>Poulet</li>
-                    <li>Tomate</li>
-                    <li>Ail</li>
-    
-                    <!-- Exemple -->
-                </ul>
+                <ul class="Ingredients-ul"></ul>
             </div>
         </div>
 
@@ -55,17 +47,9 @@
             <div class="dropdown-content">
                 <div class="dropdown-search">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input class="Appareils-input" type="text" placeholder="Rechercher...">
+                    <input id="appareils-filter" class="Appareils-input" type="text" placeholder="Rechercher...">
                 </div>
-                <ul class="Appareils-ul">
-                    <!-- Exemple -->
-                    
-                    <li>Poulet</li>
-                    <li>Tomate</li>
-                    <li>Ail</li>
-    
-                    <!-- Exemple -->
-                </ul>
+                <ul class="Appareils-ul"></ul>
             </div>
         </div>
     
@@ -75,20 +59,22 @@
             <div class="dropdown-content">
                 <div class="dropdown-search">
                     <i class="fa-solid fa-magnifying-glass"></i>
-                    <input class="Ustensiles-input" type="text" placeholder="Rechercher...">
+                    <input id="ustensils-filter" class="Ustensiles-input" type="text" placeholder="Rechercher...">
                 </div>
-                <ul class="Ustensiles-ul">
-                    <!-- Exemple -->
-                    
-                    <li>Poulet</li>
-                    <li>Tomate</li>
-                    <li>Ail</li>
-    
-                    <!-- Exemple -->
-                </ul>
+                <ul class="Ustensiles-ul"></ul>
             </div>
         </div>
         
+    </div>
+
+    <div class="center">
+        <div class="tag-container">
+            <div class="tag" style="display: none;">
+                <span class="tag-text">Poulet</span>
+                <button class="tag-close">X</button>
+            </div>
+        </div>
+
     </div>
 
     <!-- Message de résultats -->
