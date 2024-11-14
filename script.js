@@ -80,7 +80,6 @@ function GetUstensilsFromJSON(data, filter="")
 function GetDataWithFilter(data)
 {
     var lst = [];
-    console.log(tags.Ingredients);
     data.forEach(recette => {
 
         var shouldSkip = false;
@@ -161,7 +160,7 @@ function GetRecette(data, description)
 
             if(!shouldSkip)
             {
-                items.push(recette['id']);
+                items.push(recette);
             }
         });
     }
@@ -198,14 +197,25 @@ function search(data)
     deleteCards();
 
     var infos = GetRecette(data, description);
-    showCards(data, infos, description);
+    showCards(infos, infos, description);
+    setFilters()
 }
 
-function setFilters(data, ingredient_filter='', appareil_filter='', ustensil_filter='')
+function setFilters()
 {
-    var ingredients = GetIngredientsFromJSON(data, ingredient_filter);
-    var appareils = GetAppareilFromJSON(data, appareil_filter);
-    var ustensils = GetUstensilsFromJSON(data, ustensil_filter);
+    const searchBar = document.getElementById('search-barre');
+
+    newdata = GetRecette(Data, searchBar.value);
+    
+    const ingredient_filter = document.getElementById('ingredients-filter').value;
+    const appareil_filter = document.getElementById('appareils-filter').value;
+    const ustensil_filter = document.getElementById('ustensils-filter').value;
+
+
+    var ingredients = GetIngredientsFromJSON(newdata, ingredient_filter);
+    var appareils = GetAppareilFromJSON(newdata, appareil_filter);
+    var ustensils = GetUstensilsFromJSON(newdata, ustensil_filter);
+
 
     setFilter(ingredients, "Ingredients-ul");
     setFilter(appareils, "Appareils-ul");
@@ -220,7 +230,7 @@ function addTagFilter(type, name)
     for(const key in tags)
     {
         tags[key].forEach(tag => {
-            addTag(type, tag);
+            addTag(key, tag);
         });
     }
 
@@ -248,7 +258,7 @@ function deleteCards()
        
 }
 
-function showCards(data, infos, descritpion)
+function showCards(data, descritpion)
 {
     const noResult = document.getElementsByClassName('no-results')[0];
     const result = document.getElementsByClassName('results')[0];
@@ -256,28 +266,27 @@ function showCards(data, infos, descritpion)
     const cardContainerTemplate = document.getElementsByClassName('card-container')[0];
     const cardTemplate = document.getElementsByClassName('card')[0];
 
-    if(infos.length > 0)
+    if(data.length > 0)
     {
         result.style.display = 'block';
         cardContainerTemplate.style.display = 'flex';
 
-        document.querySelector('.results-number').textContent = infos.length + " recettes trouvés";
+        document.querySelector('.results-number').textContent = data.length + " recettes trouvés";
 
         var cardContainer = cardContainerTemplate.cloneNode(true);
         result.appendChild(cardContainer);
 
-        infos.forEach(id => {
+        data.forEach(datainfo => {
             var card = cardTemplate.cloneNode(true);
-            var recette = data[id-1];
 
-            card.querySelector('#card-title').textContent = recette['name'];
-            card.querySelector('#card-descritpion').textContent = recette['description'];
+            card.querySelector('#card-title').textContent = datainfo['name'];
+            card.querySelector('#card-descritpion').textContent = datainfo['description'];
 
-            card.querySelector('.card-image').style.backgroundImage = "url('images/JSON recipes/" + recette['image'] + "')";
+            card.querySelector('.card-image').style.backgroundImage = "url('images/JSON recipes/" + datainfo['image'] + "')";
 
             const ingredients = card.querySelector('.ingredients');
 
-            recette['ingredients'].forEach(ingredient => {
+            datainfo['ingredients'].forEach(ingredient => {
                 const htmldata = "<div>" + 
                     (ingredient['ingredient'] || '') + "<br><span>" + 
                     (ingredient['quantity'] || '') + " " + 
@@ -287,8 +296,8 @@ function showCards(data, infos, descritpion)
                 ingredients.innerHTML += htmldata;
             });
 
-            card.querySelector('#card-title').textContent = recette['name'];
-            card.querySelector('#card-title').textContent = recette['name'];
+            card.querySelector('#card-title').textContent = datainfo['name'];
+            card.querySelector('#card-title').textContent = datainfo['name'];
 
             if(cardContainer.children.length == 4)
             {
@@ -379,7 +388,6 @@ var tags = {
 
 loadJSON().then(data => {
     Data = data;
-    setFilters(data);
     search(data);
 
     const searchBar = document.getElementById('search-barre');
@@ -393,18 +401,15 @@ loadJSON().then(data => {
 
 
     ingredient_filter.addEventListener('input', function() {
-        lst = GetIngredientsFromJSON(data, ingredient_filter.value);
-        setFilter(lst, "Ingredients-ul");
+        setFilters();
     });
     
     appareil_filter.addEventListener('input', function() {
-        lst = GetAppareilFromJSON(data, appareil_filter.value);
-        setFilter(lst, "Appareils-ul");
+        setFilters();
     });
 
     ustensil_filter.addEventListener('input', function() {
-        lst = GetUstensilsFromJSON(data, ustensil_filter.value);
-        setFilter(lst, "Ustensiles-ul");
+        setFilters();
     });
 });
 
