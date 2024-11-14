@@ -77,13 +77,67 @@ function GetUstensilsFromJSON(data, filter="")
     return lst;
 }
 
-function GetRecetteByDescriptions(data, description)
+function GetDataWithFilter(data)
+{
+    var lst = [];
+    var shouldSkip = false;
+    data.forEach(recette => {
+
+        console.log(tags.Ingredients);
+        tags.Ingredients.forEach(ingredientTag => {
+            var inside = false;
+            recette['ingredients'].forEach(ingredient => {
+                if(ingredient['ingredient'].toLocaleLowerCase() == ingredientTag.toLocaleLowerCase())
+                {
+                    inside = true;
+                }
+            });
+            if(!inside)
+            {
+                shouldSkip = true;
+            }
+        });
+
+        tags.Appareils.forEach(appareilTag => {
+            if(recette['appliance'] != appareilTag)
+            {
+                shouldSkip = true;
+            }
+        });
+
+        tags.Ustensiles.forEach(ustensilTag => {
+            var inside = false;
+            recette['ustensils'].forEach(ustensil => {
+                if(ustensil == ustensilTag)
+                {
+                    inside = true;
+                }
+            });
+            if(!inside)
+            {
+                shouldSkip = true;
+            }
+        });
+
+        if(!shouldSkip)
+        {
+            lst.push(recette);
+        }
+    });   
+
+    return lst;
+}
+
+function GetRecette(data, description)
 {
     var items = [];
     if(description.length >= 3 || description.length == 0)
     {
         description = description.toLowerCase();
-        data.forEach(recette => {
+
+        const newData = GetDataWithFilter(data);
+
+        newData.forEach(recette => {
             var infos = [];
             infos = [...new Set([...infos, ...recette['name'].split(' ')])];
             infos = [...new Set([...infos, ...recette['description'].split(' ')])];
@@ -138,11 +192,14 @@ function addFilter(type, name)
 }
 
 //fonction reliant back-front
-function searchWithoutFilter(data, description)
+function search(data)
 {
+    const searchBar = document.getElementById('search-barre');
+    description = searchBar.value
+
     deleteCards();
 
-    var infos = GetRecetteByDescriptions(data, description);
+    var infos = GetRecette(data, description);
     showCards(data, infos);
 }
 
@@ -168,6 +225,8 @@ function addTagFilter(type, name)
             addTag(type, tag);
         });
     }
+
+    search(Data)
 }
 
 //fonction front
@@ -318,7 +377,7 @@ var tags = {
 loadJSON().then(data => {
     Data = data;
     setFilters(data);
-    searchWithoutFilter(data, '');
+    search(data);
 
     const searchBar = document.getElementById('search-barre');
     const ingredient_filter = document.getElementById('ingredients-filter');
@@ -326,7 +385,7 @@ loadJSON().then(data => {
     const ustensil_filter = document.getElementById('ustensils-filter');
 
     searchBar.addEventListener('input', function() {
-        searchWithoutFilter(data, searchBar.value)
+        search(data)
     });
 
 
