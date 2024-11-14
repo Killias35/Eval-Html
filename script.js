@@ -80,10 +80,10 @@ function GetUstensilsFromJSON(data, filter="")
 function GetDataWithFilter(data)
 {
     var lst = [];
-    var shouldSkip = false;
+    console.log(tags.Ingredients);
     data.forEach(recette => {
 
-        console.log(tags.Ingredients);
+        var shouldSkip = false;
         tags.Ingredients.forEach(ingredientTag => {
             var inside = false;
             recette['ingredients'].forEach(ingredient => {
@@ -141,8 +141,6 @@ function GetRecette(data, description)
             var infos = [];
             infos = [...new Set([...infos, ...recette['name'].split(' ')])];
             infos = [...new Set([...infos, ...recette['description'].split(' ')])];
-            infos = [...new Set([...infos, ...recette['appliance'].split(' ')])];
-            infos = [...new Set([...infos, ...recette["ustensils"]])];
 
             recette['ingredients'].forEach(ingredient_data => {
                 ingredient = ingredient_data['ingredient']
@@ -200,7 +198,7 @@ function search(data)
     deleteCards();
 
     var infos = GetRecette(data, description);
-    showCards(data, infos);
+    showCards(data, infos, description);
 }
 
 function setFilters(data, ingredient_filter='', appareil_filter='', ustensil_filter='')
@@ -250,7 +248,7 @@ function deleteCards()
        
 }
 
-function showCards(data, infos)
+function showCards(data, infos, descritpion)
 {
     const noResult = document.getElementsByClassName('no-results')[0];
     const result = document.getElementsByClassName('results')[0];
@@ -280,7 +278,12 @@ function showCards(data, infos)
             const ingredients = card.querySelector('.ingredients');
 
             recette['ingredients'].forEach(ingredient => {
-                const htmldata = "<div>" + ingredient['ingredient'] + "<br><span>" + ingredient['quantity'] + " " + ingredient['unit'] + "</span></div>";                
+                const htmldata = "<div>" + 
+                    (ingredient['ingredient'] || '') + "<br><span>" + 
+                    (ingredient['quantity'] || '') + " " + 
+                    (ingredient['unit'] || '') + 
+                    "</span></div>"; 
+                    
                 ingredients.innerHTML += htmldata;
             });
 
@@ -301,8 +304,8 @@ function showCards(data, infos)
         cardContainerTemplate.style.display = 'none';
     }
     else{
-
-    noResult.style.display = 'block';
+        noResult.style.display = 'block';
+        document.getElementById('search-result').textContent = 'Aucune recette correspondant a ' + descritpion
     }
 }
 
